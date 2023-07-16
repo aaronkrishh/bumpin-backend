@@ -7,6 +7,11 @@ app.get('/', (req, res) => {
     res.send('Hello world')
 })
 
+app.post('/login', (req, res) => {
+
+    res.status(403).send('Unauthorized')
+})
+
 app.listen(port, () => {
-    console.log(`Connected succesfully on port ${port}`)
+    console.log(`Connected successfully on port ${port}`)
 })

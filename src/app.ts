@@ -1,5 +1,5 @@
 import express from 'express';
-import {createTournamentHandler} from "./views/tournament";
+import {createTournamentHandler, getTournamentsHandler} from "./views/tournament";
 
 const app = express();
 const port = 4000;
@@ -19,9 +19,10 @@ app.post('/login', (req, res) => {
     res.status(403).send({'status': 'Unauthorized'})
 })
 
-app.post('/tournament/create', createTournamentHandler)
-
-
+app.post('/tournament', createTournamentHandler)
+app.get('/tournament', getTournamentsHandler)
+// app.post('/tournament/score', ...)
+// app.post('/tournament/:id/update-status', ...)
 
 app.listen(port, () => {
     console.log(`Connected successfully on port ${port}`)

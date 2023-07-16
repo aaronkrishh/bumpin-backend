@@ -13,12 +13,13 @@ app.get('/', (req, res) => {
 
 app.post('/login', (req, res) => {
     if (req.body.password == "bumpin") {
-        res.status(200).send('Authorized')
+        res.status(200).send({'status': 'Authorized'})
+        return
     }
-    res.status(403).send('Unauthorized')
+    res.status(403).send({'status': 'Unauthorized'})
 })
 
-app.post('tournament/create', createTournamentHandler)
+app.post('/tournament/create', createTournamentHandler)
 
 
 

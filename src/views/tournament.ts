@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {createTournament, getTournaments} from "../models/Tournament";
+import {createTournament, getTournaments, updateStage} from "../models/Tournament";
 import {createScore} from "../models/Score";
 
 
@@ -22,8 +22,8 @@ async function getTournamentsHandler(req: Request, res: Response){
 }
 
 async function addScoreHandler(req: Request, res: Response){
-    let {teamA, teamB, teamAScores, teamBScores, gameType} = req.body.score
     let tournamentId = Number(req.params.id)
+    let {teamA, teamB, teamAScores, teamBScores, gameType} = req.body.score
 
     let score = await createScore(
         tournamentId,
@@ -39,5 +39,14 @@ async function addScoreHandler(req: Request, res: Response){
     })
 }
 
+async function updateStageHandler(req: Request, res: Response) {
+    let tournamentId = Number(req.params.id)
+    let tournament = await updateStage(tournamentId, req.body.stage)
 
-export { createTournamentHandler, getTournamentsHandler, addScoreHandler }
+    res.status(200).send({
+        'tournament': tournament
+    })
+}
+
+
+export { createTournamentHandler, getTournamentsHandler, addScoreHandler, updateStageHandler }

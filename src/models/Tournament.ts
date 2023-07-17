@@ -1,5 +1,5 @@
 import {PrismaClient} from '@prisma/client'
-import type {Tournament} from "@prisma/client";
+import type {Tournament, Stage} from "@prisma/client";
 
 const prisma = new PrismaClient()
 
@@ -23,6 +23,13 @@ async function getTournaments(): Promise<Tournament[]>  {
     return allTournaments
 }
 
+async function updateStage(tournamentId: number, stage: Stage): Promise<Tournament> {
+    let tournament = await prisma.tournament.update({
+        where: { id: tournamentId },
+        data: { stage: stage },
+    })
+    return tournament
+}
 
 
-export { createTournament, getTournaments }
+export { createTournament, getTournaments, updateStage }

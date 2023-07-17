@@ -1,7 +1,8 @@
-import {getTournament} from "../models/Tournament";
+import {getTournament, Seeding} from "../models/Tournament";
 import {getTournamentPoolScores} from "../models/Score";
 
-async function computeSeeding(tournamentId: number) {
+
+async function computeSeeding(tournamentId: number): Promise<Seeding> {
     const tournament = await getTournament(tournamentId)
 
     let counts: any = {}
@@ -35,8 +36,9 @@ async function computeSeeding(tournamentId: number) {
         return a[1].scoreDiff - b[1].scoreDiff
     });
 
-    let seeding: string[] = sortable.map((data: any) => data[0])
-
+    let seeding: Seeding = {playoffs: [], consolation: []}
+    seeding.playoffs = sortable.map((data: any) => data[0])
+    return seeding
 }
 
 export { computeSeeding }

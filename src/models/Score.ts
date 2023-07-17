@@ -1,6 +1,5 @@
 import {PrismaClient, GameType} from '@prisma/client'
 import type {Score} from "@prisma/client";
-import exp from "constants";
 
 const prisma = new PrismaClient()
 

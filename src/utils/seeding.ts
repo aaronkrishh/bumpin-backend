@@ -1,7 +1,6 @@
 import {getTournament} from "../models/Tournament";
 import {getTournamentPoolScores} from "../models/Score";
 
-
 async function computeSeeding(tournamentId: number) {
     const tournament = await getTournament(tournamentId)
 

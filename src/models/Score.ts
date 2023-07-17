@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client'
-import type {Score, GameType} from "@prisma/client";
+import {PrismaClient, GameType} from '@prisma/client'
+import type {Score} from "@prisma/client";
 import exp from "constants";
 
 const prisma = new PrismaClient()
@@ -44,4 +44,14 @@ async function createScore(tournamentId: number,
     return score;
 }
 
-export { createScore }
+async function getTournamentPoolScores(tournamentId: number): Promise<Score[]>  {
+    const scores = await prisma.score.findMany({
+        where: {
+            tournamentId: tournamentId,
+            gameType: GameType.POOL,
+        }
+    })
+    return scores
+}
+
+export { createScore, getTournamentPoolScores }

@@ -4,8 +4,8 @@ import {createScore} from "../models/Score";
 
 
 async function createTournamentHandler(req: Request, res: Response){
-    let {teamCount, teamNames} = req.body.tournament
-    let tournament = await createTournament(teamCount, teamNames)
+    let {teamCount} = req.body.tournament
+    let tournament = await createTournament(teamCount)
 
     res.status(200).send({
         'tournament': tournament

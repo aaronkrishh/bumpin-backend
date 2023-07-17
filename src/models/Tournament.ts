@@ -5,12 +5,10 @@ const prisma = new PrismaClient()
 
 
 async function createTournament(teamCount: number,
-                                teamNames: string[],
                                 bracketType: number = 0): Promise<Tournament> {
     const tournament = await prisma.tournament.create({
         data: {
             teamCount,
-            teamNames,
             bracketType,
         },
     });

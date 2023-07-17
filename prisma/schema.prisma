@@ -25,8 +25,8 @@ model Tournament {
   teamNames String[]
   bracketType Int
   stage Stage @default(PREP)
-  seedingPlayoffs String[]
-  seedingConsolation String[]
+  pools Json  @default("[]")
+  seeding Json @default("{}")
   scores Score[]
 }
 
@@ -44,6 +44,7 @@ model Score {
   teamB String
   teamAScores Int []
   teamBScores Int []
+  sets Int
   gameType GameType
   winner String
 }

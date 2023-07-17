@@ -13,7 +13,7 @@ async function computeSeeding(tournamentId: number) {
     scores.forEach(score => {
         counts[score.winner].sets += 1
         let diff = 0
-        for (let i = 0; i < score.teamAScores.length; i++) {
+        for (let i = 0; i < score.sets; i++) {
             diff += (score.teamAScores[i] - score.teamBScores[i])
         }
         counts[score.teamA].scoreDiff += diff

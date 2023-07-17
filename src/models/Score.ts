@@ -28,6 +28,7 @@ async function createScore(tournamentId: number,
                            gameType: GameType): Promise<Score> {
 
     const winner = computeWinner(teamA, teamB, teamAScores, teamBScores)
+    const sets = teamAScores.length
     const score = await prisma.score.create({
         data: {
             tournamentId,
@@ -36,7 +37,8 @@ async function createScore(tournamentId: number,
             teamAScores,
             teamBScores,
             gameType,
-            winner
+            winner,
+            sets,
         },
     });
 

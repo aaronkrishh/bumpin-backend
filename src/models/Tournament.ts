@@ -1,5 +1,5 @@
 import {PrismaClient} from '@prisma/client'
-import type {Tournament, Score} from "@prisma/client";
+import type {Tournament} from "@prisma/client";
 
 const prisma = new PrismaClient()
 
@@ -22,6 +22,7 @@ async function getTournaments(): Promise<Tournament[]>  {
     const allTournaments = await prisma.tournament.findMany()
     return allTournaments
 }
+
 
 
 export { createTournament, getTournaments }

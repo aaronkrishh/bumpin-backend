@@ -13,8 +13,8 @@ CREATE TABLE "Tournament" (
     "teamNames" TEXT[],
     "bracketType" INTEGER NOT NULL,
     "stage" "Stage" NOT NULL DEFAULT 'PREP',
-    "seedingPlayoffs" TEXT[],
-    "seedingConsolation" TEXT[],
+    "pools" JSONB NOT NULL DEFAULT '[]',
+    "seeding" JSONB NOT NULL DEFAULT '{}',
 
     CONSTRAINT "Tournament_pkey" PRIMARY KEY ("id")
 );
@@ -27,6 +27,7 @@ CREATE TABLE "Score" (
     "teamB" TEXT NOT NULL,
     "teamAScores" INTEGER[],
     "teamBScores" INTEGER[],
+    "sets" INTEGER NOT NULL,
     "gameType" "GameType" NOT NULL,
     "winner" TEXT NOT NULL,
 

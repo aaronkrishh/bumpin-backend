@@ -1,5 +1,12 @@
 import express from 'express';
-import {addScoreHandler, createTournamentHandler, getTournamentsHandler, updateStageHandler} from "./views/tournament";
+import {
+    addScoreHandler,
+    createTournamentHandler,
+    getTournamentHandler,
+    getTournamentsHandler,
+    updateStageHandler
+} from "./views/tournament";
+import {getTournament} from "./models/Tournament";
 
 require('dotenv').config();
 
@@ -32,6 +39,7 @@ app.post('/login', (req, res) => {
 
 app.post('/tournament', createTournamentHandler)
 app.get('/tournament', getTournamentsHandler)
+app.get('/tournament/:id', getTournamentHandler)
 app.post('/tournament/:id/add-score', addScoreHandler)
 app.post('/tournament/:id/update-stage', updateStageHandler)
 

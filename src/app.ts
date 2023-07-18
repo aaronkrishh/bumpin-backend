@@ -1,8 +1,11 @@
 import express from 'express';
 import {addScoreHandler, createTournamentHandler, getTournamentsHandler, updateStageHandler} from "./views/tournament";
+let cors = require('cors')
 
 const app = express();
 const port = 4000;
+
+app.use(cors())
 
 app.use(express.json()) // for parsing application/json
 

@@ -1,12 +1,20 @@
 import express from 'express';
 import {addScoreHandler, createTournamentHandler, getTournamentsHandler, updateStageHandler} from "./views/tournament";
-let cors = require('cors')
 
+require('dotenv').config();
+
+let cors = require('cors')
 const app = express();
 const port = 4000;
 
-app.use(cors())
-
+let whitelist = ["https://bumpinsports.netlify.app/"]
+if (process.env.ENV == "DEV") {
+    whitelist.push("http://localhost:3000")
+}
+const corsOptions = {
+    origin: whitelist
+}
+app.use(cors(corsOptions))
 app.use(express.json()) // for parsing application/json
 
 app.get('/', (req, res) => {

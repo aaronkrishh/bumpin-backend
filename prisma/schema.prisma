@@ -19,8 +19,7 @@ enum Stage {
 
 model Tournament {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  name      String
   teamCount Int
   teamNames String[]
   bracketType Int
@@ -28,6 +27,8 @@ model Tournament {
   pools Json  @default("[]")
   seeding Json @default("{}")
   scores Score[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 

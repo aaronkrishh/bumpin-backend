@@ -7,14 +7,15 @@ CREATE TYPE "GameType" AS ENUM ('POOL', 'PLAYOFF');
 -- CreateTable
 CREATE TABLE "Tournament" (
     "id" SERIAL NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "name" TEXT NOT NULL,
     "teamCount" INTEGER NOT NULL,
     "teamNames" TEXT[],
     "bracketType" INTEGER NOT NULL,
     "stage" "Stage" NOT NULL DEFAULT 'PREP',
     "pools" JSONB NOT NULL DEFAULT '[]',
     "seeding" JSONB NOT NULL DEFAULT '{}',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Tournament_pkey" PRIMARY KEY ("id")
 );

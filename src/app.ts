@@ -6,7 +6,6 @@ import {
     getTournamentsHandler,
     updateStageHandler
 } from "./views/tournament";
-import {getTournament} from "./models/Tournament";
 
 require('dotenv').config();
 

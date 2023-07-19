@@ -12,11 +12,13 @@ type Pools = string[]
 
 async function createTournament(name: string,
                                 teamCount: number,
+                                poolsCount: number,
                                 bracketType: number = 0): Promise<Tournament> {
     const tournament = await prisma.tournament.create({
         data: {
             name,
             teamCount,
+            poolsCount,
             bracketType,
         },
     });

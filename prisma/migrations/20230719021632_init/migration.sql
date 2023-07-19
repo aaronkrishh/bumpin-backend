@@ -13,6 +13,7 @@ CREATE TABLE "Tournament" (
     "bracketType" INTEGER NOT NULL,
     "stage" "Stage" NOT NULL DEFAULT 'PREP',
     "pools" JSONB NOT NULL DEFAULT '[]',
+    "poolsCount" INTEGER NOT NULL,
     "seeding" JSONB NOT NULL DEFAULT '{}',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,

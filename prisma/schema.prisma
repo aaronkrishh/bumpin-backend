@@ -25,6 +25,7 @@ model Tournament {
   bracketType Int
   stage Stage @default(PREP)
   pools Json  @default("[]")
+  poolsCount Int
   seeding Json @default("{}")
   scores Score[]
   createdAt DateTime @default(now())

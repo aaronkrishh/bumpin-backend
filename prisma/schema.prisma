@@ -21,14 +21,13 @@ model Tournament {
   id        Int      @id @default(autoincrement())
   name      String
   teamCount Int
-  teamNames String[]
+  teams Team[]
   bracketType Int
   stage Stage @default(PREP)
   pools Json  @default("[]")
   poolsCount Int
   seeding Json @default("{}")
   scores Score[]
-  teams Team[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

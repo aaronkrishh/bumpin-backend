@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
-import {createTournament, getTournament, getTournaments, updateStage} from "../models/Tournament";
-import {createScore} from "../models/Score";
+import {createTournament, getTournament, getTournaments, updateStage} from "../db/Tournament";
+import {createScore} from "../db/Score";
 
 
 async function createTournamentHandler(req: Request, res: Response){

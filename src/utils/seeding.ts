@@ -1,5 +1,5 @@
-import {getTournament, Seeding} from "../models/Tournament";
-import {getTournamentPoolScores} from "../models/Score";
+import {getTournament, Seeding} from "../db/Tournament";
+import {getTournamentPoolScores} from "../db/Score";
 
 
 async function computeSeeding(tournamentId: number): Promise<Seeding> {

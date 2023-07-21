@@ -28,6 +28,7 @@ model Tournament {
   poolsCount Int
   seeding Json @default("{}")
   scores Score[]
+  teams Team[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -49,5 +50,33 @@ model Score {
   sets Int
   gameType GameType
   winner String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Team {
+  id     Int     @id @default(autoincrement())
+  tournament Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId Int
+  name String
+  players Player[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+model Player {
+  id     Int     @id @default(autoincrement())
+  team Team @relation(fields: [teamId], references: [id])
+  teamId Int
+  firstName String
+  lastName String
+  gender Gender
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 

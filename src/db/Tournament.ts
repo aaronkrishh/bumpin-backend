@@ -48,13 +48,6 @@ async function updateStage(tournamentId: number, stage: Stage): Promise<Tourname
     return tournament
 }
 
-async function updateSeeding(tournamentId: number, seeding: string[]): Promise<Tournament> {
-    let tournament = await prisma.tournament.update({
-        where: { id: tournamentId },
-        data: { seeding: seeding },
-    })
-    return tournament
-}
 
 export { createTournament, getTournaments, updateStage, getTournament }
 export { Seeding, Pools }

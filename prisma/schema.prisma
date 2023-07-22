@@ -24,14 +24,11 @@ model Tournament {
   teams Team[]
   bracketType Int
   stage Stage @default(PREP)
-  pools Json  @default("[]")
   poolsCount Int
-  seeding Json @default("{}")
   scores Score[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
 
 enum GameType {
   POOL
@@ -42,10 +39,12 @@ model Score {
   id     Int     @id @default(autoincrement())
   tournament Tournament @relation(fields: [tournamentId], references: [id])
   tournamentId Int
-  teamA String
-  teamB String
-  teamAScores Int []
-  teamBScores Int []
+  teamAId Int
+  teamA Team @relation("TeamAScores", fields: [teamAId], references: [id])
+  teamBId Int
+  teamB Team @relation("TeamBScores", fields: [teamBId], references: [id])
+  teamAPoints Int []
+  teamBPoints Int []
   sets Int
   gameType GameType
   winner String
@@ -53,12 +52,23 @@ model Score {
   updatedAt DateTime @updatedAt
 }
 
+enum Pool {
+  A
+  B
+  C
+  D
+}
+
 model Team {
   id     Int     @id @default(autoincrement())
   tournament Tournament @relation(fields: [tournamentId], references: [id])
   tournamentId Int
   name String
+  pool Pool
+  seed Int?  // Seeding for playoffs. Can be Within own pool or total
   players Player[]
+  teamAScores Score[] @relation("TeamAScores")
+  teamBScores Score[] @relation("TeamBScores")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -78,4 +88,3 @@ model Player {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-

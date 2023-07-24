@@ -19,6 +19,7 @@ async function createTournament(name: string,
     return tournament;
 }
 
+
 async function getTournaments(): Promise<Tournament[]>  {
     const allTournaments = await prisma.tournament.findMany()
     return allTournaments

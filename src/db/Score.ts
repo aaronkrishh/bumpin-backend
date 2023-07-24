@@ -1,41 +1,41 @@
-import {PrismaClient, GameType} from '@prisma/client'
+import {PrismaClient, GameType, WinnerTeam} from '@prisma/client'
 import type {Score} from "@prisma/client";
 
 const prisma = new PrismaClient()
 
-const computeWinner = (teamA: string,
-                       teamB: string,
-                       teamAScores: number[],
-                       teamBScores: number[]) => {
+const computeWinner = (teamAId: number,
+                       teamBId: number,
+                       teamAPoints: number[],
+                       teamBPoints: number[]):WinnerTeam => {
     let diff: number = 0
-    for (let i = 0; i < teamAScores.length; i++) {
-        if (teamAScores[i] > teamBScores[i]) {
+    for (let i = 0; i < teamAPoints.length; i++) {
+        if (teamAPoints[i] > teamBPoints[i]) {
             diff += 1
         } else {
             diff -= 1
         }
     }
 
-    if (diff > 0) return teamA
-    return teamB
+    if (diff > 0) return WinnerTeam.A
+    return WinnerTeam.B
 }
 
 async function createScore(tournamentId: number,
-                           teamA: string,
-                           teamB: string,
-                           teamAScores: number[],
-                           teamBScores: number[],
+                           teamAId: number,
+                           teamBId: number,
+                           teamAPoints: number[],
+                           teamBPoints: number[],
                            gameType: GameType): Promise<Score> {
 
-    const winner = computeWinner(teamA, teamB, teamAScores, teamBScores)
-    const sets = teamAScores.length
+    const winner = computeWinner(teamAId, teamBId, teamAPoints, teamBPoints)
+    const sets = teamAPoints.length
     const score = await prisma.score.create({
         data: {
             tournamentId,
-            teamA,
-            teamB,
-            teamAScores,
-            teamBScores,
+            teamAId,
+            teamBId,
+            teamAPoints,
+            teamBPoints,
             gameType,
             winner,
             sets,

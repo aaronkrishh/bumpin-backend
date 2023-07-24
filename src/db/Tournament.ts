@@ -3,13 +3,6 @@ import type {Tournament, Stage} from "@prisma/client";
 
 const prisma = new PrismaClient()
 
-type Seeding = {
-    playoffs: string[]
-    consolation: string[]
-}
-
-type Pools = string[]
-
 async function createTournament(name: string,
                                 teamCount: number,
                                 poolsCount: number,
@@ -35,6 +28,9 @@ async function getTournament(id: number): Promise<Tournament>  {
     const tournament = await prisma.tournament.findUniqueOrThrow({
         where: {
             id: id,
+        },
+        include: {
+            teams: true
         }
     })
     return tournament
@@ -50,4 +46,3 @@ async function updateStage(tournamentId: number, stage: Stage): Promise<Tourname
 
 
 export { createTournament, getTournaments, updateStage, getTournament }
-export { Seeding, Pools }

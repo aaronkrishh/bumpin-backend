@@ -29,9 +29,6 @@ async function getTournament(id: number): Promise<Tournament>  {
     const tournament = await prisma.tournament.findUniqueOrThrow({
         where: {
             id: id,
-        },
-        include: {
-            teams: true
         }
     })
     return tournament

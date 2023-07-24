@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import {createTournament, getTournament, getTournaments, updateStage} from "../db/Tournament";
 import {createScore} from "../db/Score";
-import {initializeTeams} from "../db/Team";
+import {getTeamsForTournament, initializeTeams} from "../db/Team";
 
 
 async function createTournamentHandler(req: Request, res: Response){
@@ -26,9 +26,11 @@ async function getTournamentsHandler(req: Request, res: Response){
 async function getTournamentHandler(req: Request, res: Response){
     let tournamentId = Number(req.params.id)
     let tournament = await getTournament(tournamentId)
+    let teams = await getTeamsForTournament(tournamentId)
 
     res.status(200).send({
-        'tournament': tournament
+        'tournament': tournament,
+        'teams': teams,
     })
 }
 

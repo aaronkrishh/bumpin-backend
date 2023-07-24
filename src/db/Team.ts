@@ -1,6 +1,16 @@
-import {Pool, PrismaClient, Tournament} from "@prisma/client";
+import {Pool, PrismaClient, Team, Tournament} from "@prisma/client";
 
 const prisma = new PrismaClient()
+
+async function getTeamsForTournament(tournamentId: number): Promise<Team[]> {
+    const teams = await prisma.team.findMany({
+        where: {
+            tournamentId: tournamentId
+        }
+    })
+    return teams
+}
+
 
 const numToPool = (number: number, poolCount: number): Pool => {
     let mod = number % poolCount
@@ -27,4 +37,19 @@ async function initializeTeams(tournament: Tournament) {
     })
 }
 
-export { initializeTeams }
+interface UpdateTeamData {
+    name?: string
+    pool?: Pool
+    seed?: number
+}
+
+async function updateTeam(teamId: number, data: UpdateTeamData) {
+    const team = await prisma.team.update({
+        where: { id: teamId },
+        data: data
+    })
+    return team
+}
+
+
+export { initializeTeams, updateTeam, getTeamsForTournament }

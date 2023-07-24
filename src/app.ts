@@ -6,6 +6,7 @@ import {
     getTournamentsHandler,
     updateStageHandler
 } from "./views/tournament";
+import {updateTeamHandler} from "./views/team";
 
 require('dotenv').config();
 
@@ -41,6 +42,7 @@ app.get('/tournament', getTournamentsHandler)
 app.get('/tournament/:id', getTournamentHandler)
 app.post('/tournament/:id/add-score', addScoreHandler)
 app.post('/tournament/:id/update-stage', updateStageHandler)
+app.post('/team/:id/update', updateTeamHandler)
 
 app.listen(port, () => {
     console.log(`Connected successfully on port ${port}`)

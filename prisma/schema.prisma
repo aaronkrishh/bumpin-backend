@@ -35,6 +35,11 @@ enum GameType {
   PLAYOFF
 }
 
+enum WinnerTeam {
+  A
+  B
+}
+
 model Score {
   id     Int     @id @default(autoincrement())
   tournament Tournament @relation(fields: [tournamentId], references: [id])
@@ -47,7 +52,7 @@ model Score {
   teamBPoints Int []
   sets Int
   gameType GameType
-  winner String
+  winner WinnerTeam
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

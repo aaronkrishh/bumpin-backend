@@ -42,5 +42,26 @@ async function updateStage(tournamentId: number, stage: Stage): Promise<Tourname
     return tournament
 }
 
+async function updateName(tournamentId: number, name: string): Promise<Tournament> {
+    let tournament = await prisma.tournament.update({
+        where: { id: tournamentId },
+        data: { name: name },
+    })
+    return tournament
+}
 
-export { createTournament, getTournaments, updateStage, getTournament }
+interface UpdateTournamentData {
+    name?: string,
+    stage?: Stage,
+}
+
+async function updateTournament(tournamentId: number, data: UpdateTournamentData) {
+    let tournament = await prisma.tournament.update({
+        where: { id: tournamentId },
+        data: data,
+    })
+    return tournament
+}
+
+export { createTournament, getTournaments, updateStage, getTournament, updateName, updateTournament }
+export type { UpdateTournamentData }

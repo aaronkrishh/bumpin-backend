@@ -4,7 +4,7 @@ import {
     createTournamentHandler,
     getTournamentHandler,
     getTournamentsHandler,
-    updateStageHandler
+    updateStageHandler, updateTournamentNameHandler
 } from "./views/tournament";
 import {updateTeamHandler} from "./views/team";
 
@@ -40,8 +40,11 @@ app.post('/login', (req, res) => {
 app.post('/tournament', createTournamentHandler)
 app.get('/tournament', getTournamentsHandler)
 app.get('/tournament/:id', getTournamentHandler)
+app.post('/tournament/:id/update-name', updateTournamentNameHandler)
 app.post('/tournament/:id/add-score', addScoreHandler)
 app.post('/tournament/:id/update-stage', updateStageHandler)
+
+
 app.post('/team/:id/update', updateTeamHandler)
 
 app.listen(port, () => {

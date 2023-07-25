@@ -6,6 +6,9 @@ async function getTeamsForTournament(tournamentId: number): Promise<Team[]> {
     const teams = await prisma.team.findMany({
         where: {
             tournamentId: tournamentId
+        },
+        orderBy: {
+            id: "asc"
         }
     })
     return teams

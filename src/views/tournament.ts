@@ -68,7 +68,7 @@ async function updateStageHandler(req: Request, res: Response) {
     })
 }
 
-async function updateTournamentNameHandler(req: Request, res: Response) {
+async function updateTournamentHandler(req: Request, res: Response) {
     let tournamentId = Number(req.params.id)
     let data: UpdateTournamentData = {name: req.body.name}
     let tournament = await updateTournament(tournamentId, data)
@@ -79,4 +79,4 @@ async function updateTournamentNameHandler(req: Request, res: Response) {
 }
 
 
-export { createTournamentHandler, getTournamentsHandler, addScoreHandler, updateStageHandler, getTournamentHandler, updateTournamentNameHandler }
+export { createTournamentHandler, getTournamentsHandler, addScoreHandler, updateStageHandler, getTournamentHandler, updateTournamentHandler }

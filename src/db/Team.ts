@@ -14,9 +14,9 @@ async function getTeamsForTournament(tournamentId: number): Promise<Team[]> {
 
 const numToPool = (number: number, poolCount: number): Pool => {
     let mod = number % poolCount
-    if (mod == 0) return Pool.A
-    if (mod == 1) return Pool.B
-    if (mod == 2) return Pool.C
+    if (mod === 0) return Pool.A
+    if (mod === 1) return Pool.B
+    if (mod === 2) return Pool.C
     return Pool.D
 }
 

@@ -4,7 +4,8 @@ import {
     createTournamentHandler,
     getTournamentHandler,
     getTournamentsHandler,
-    updateStageHandler, updateTournamentNameHandler
+    updateStageHandler,
+    updateTournamentHandler
 } from "./views/tournament";
 import {updateTeamHandler} from "./views/team";
 
@@ -15,7 +16,7 @@ const app = express();
 const port = 4000;
 
 let whitelist = ["https://bumpinsports.netlify.app/"]
-if (process.env.NODE_ENV == "dev") {
+if (process.env.NODE_ENV === "dev") {
     whitelist.push("http://localhost:3000")
 }
 const corsOptions = {
@@ -30,7 +31,7 @@ app.get('/', (req, res) => {
 
 
 app.post('/login', (req, res) => {
-    if (req.body.password == "bumpin") {
+    if (req.body.password === "bumpin") {
         res.status(200).send({'status': 'Authorized'})
         return
     }
@@ -40,7 +41,7 @@ app.post('/login', (req, res) => {
 app.post('/tournament', createTournamentHandler)
 app.get('/tournament', getTournamentsHandler)
 app.get('/tournament/:id', getTournamentHandler)
-app.post('/tournament/:id/update-name', updateTournamentNameHandler)
+app.post('/tournament/:id/update', updateTournamentHandler)
 app.post('/tournament/:id/add-score', addScoreHandler)
 app.post('/tournament/:id/update-stage', updateStageHandler)
 

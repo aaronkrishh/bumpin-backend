@@ -8,7 +8,6 @@ import {
 } from "../db/Tournament";
 import {createScore} from "../db/Score";
 import {getTeamsForTournament, initializeTeams, updateTeamPools} from "../db/Team";
-import {Pool} from "@prisma/client";
 import {numToPool, shuffle} from "../utils/util";
 
 

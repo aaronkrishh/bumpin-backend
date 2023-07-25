@@ -1,4 +1,5 @@
 import {Pool, PrismaClient, Team, Tournament} from "@prisma/client";
+import {numToPool} from "../utils/util";
 
 const prisma = new PrismaClient()
 
@@ -14,14 +15,6 @@ async function getTeamsForTournament(tournamentId: number): Promise<Team[]> {
     return teams
 }
 
-
-const numToPool = (number: number, poolCount: number): Pool => {
-    let mod = number % poolCount
-    if (mod === 0) return Pool.A
-    if (mod === 1) return Pool.B
-    if (mod === 2) return Pool.C
-    return Pool.D
-}
 
 async function initializeTeams(tournament: Tournament) {
     const teamsData: any[] = []
@@ -54,5 +47,14 @@ async function updateTeam(teamId: number, data: UpdateTeamData) {
     return team
 }
 
+async function updateTeamPools(teamIds: number[], pool: Pool) {
+    await prisma.team.updateMany({
+        where: { id: { in: teamIds } },
+        data: {
+            pool: pool
+        }
+    })
+}
 
-export { initializeTeams, updateTeam, getTeamsForTournament }
+
+export { initializeTeams, updateTeam, getTeamsForTournament, updateTeamPools }

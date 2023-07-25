@@ -7,7 +7,9 @@ import {
     UpdateTournamentData
 } from "../db/Tournament";
 import {createScore} from "../db/Score";
-import {getTeamsForTournament, initializeTeams} from "../db/Team";
+import {getTeamsForTournament, initializeTeams, updateTeamPools} from "../db/Team";
+import {Pool} from "@prisma/client";
+import {numToPool, shuffle} from "../utils/util";
 
 
 async function createTournamentHandler(req: Request, res: Response){
@@ -78,5 +80,26 @@ async function updateTournamentHandler(req: Request, res: Response) {
     })
 }
 
+async function shufflePoolsHandler(req: Request, res: Response) {
+    let tournamentId = Number(req.params.id)
+    let tournament = await getTournament(tournamentId)
+    let teams = await getTeamsForTournament(tournamentId)
+    let teamIds = teams.map(team => team.id)
+    shuffle(teamIds)
 
-export { createTournamentHandler, getTournamentsHandler, addScoreHandler, updateStageHandler, getTournamentHandler, updateTournamentHandler }
+    let teamsPerPool = tournament.teamCount / tournament.poolsCount
+    for (let i = 0; i < tournament.poolsCount; i++) {
+        let teamsToUpdate = teamIds.slice(i*teamsPerPool, (i+1)*teamsPerPool)
+        await updateTeamPools(teamsToUpdate, numToPool(i, tournament.poolsCount))
+    }
+
+    teams = await getTeamsForTournament(tournamentId)
+    res.status(200).send({
+        'tournament': tournament,
+        'teams': teams
+    })
+}
+
+
+export { createTournamentHandler, getTournamentsHandler, addScoreHandler, updateStageHandler, getTournamentHandler,
+    updateTournamentHandler, shufflePoolsHandler }

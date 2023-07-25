@@ -3,7 +3,7 @@ import {
     addScoreHandler,
     createTournamentHandler,
     getTournamentHandler,
-    getTournamentsHandler,
+    getTournamentsHandler, shufflePoolsHandler,
     updateStageHandler,
     updateTournamentHandler
 } from "./views/tournament";
@@ -42,6 +42,7 @@ app.post('/tournament', createTournamentHandler)
 app.get('/tournament', getTournamentsHandler)
 app.get('/tournament/:id', getTournamentHandler)
 app.post('/tournament/:id/update', updateTournamentHandler)
+app.post('/tournament/:id/shuffle-pools', shufflePoolsHandler)
 app.post('/tournament/:id/add-score', addScoreHandler)
 app.post('/tournament/:id/update-stage', updateStageHandler)
 

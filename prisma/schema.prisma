@@ -94,7 +94,7 @@ model Player {
   updatedAt DateTime @updatedAt
 }
 
-// enum Role {
+// enum UserRole {
 //   STANDARD
 //   ADMIN
 // }
@@ -103,7 +103,7 @@ model Player {
 //   id     Int     @id @default(autoincrement())
 //   username String @unique
 //   password String
-//   role Role
+//   role UserRole
 //   createdAt DateTime @default(now())
 //   updatedAt DateTime @updatedAt
 // }

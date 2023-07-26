@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import {
     addScoreHandler,
     createTournamentHandler,
@@ -22,6 +22,14 @@ if (process.env.NODE_ENV === "dev") {
 const corsOptions = {
     origin: whitelist
 }
+
+const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.error(err)
+    res.status(500).send({
+        "error": "Internal Server Error",
+    })
+}
+
 app.use(cors(corsOptions))
 app.use(express.json()) // for parsing application/json
 
@@ -45,9 +53,11 @@ app.post('/tournament/:id/update', updateTournamentHandler)
 app.post('/tournament/:id/shuffle-pools', shufflePoolsHandler)
 app.post('/tournament/:id/add-score', addScoreHandler)
 app.post('/tournament/:id/update-stage', updateStageHandler)
-
-
 app.post('/team/:id/update', updateTeamHandler)
+
+
+app.use(errorHandler)
+
 
 app.listen(port, () => {
     console.log(`Connected successfully on port ${port}`)

@@ -6,7 +6,7 @@ import {
     updateTournament,
     UpdateTournamentData
 } from "../db/Tournament";
-import {createScore} from "../db/Score";
+import {createScore, getTournamentScores} from "../db/Score";
 import {getTeamsForTournament, initializeTeams, updateTeamPools} from "../db/Team";
 import {numToPool, shuffle} from "../utils/util";
 
@@ -34,10 +34,12 @@ async function getTournamentHandler(req: Request, res: Response){
     let tournamentId = Number(req.params.id)
     let tournament = await getTournament(tournamentId)
     let teams = await getTeamsForTournament(tournamentId)
+    let scores = await getTournamentScores(tournamentId)
 
     res.status(200).send({
         'tournament': tournament,
         'teams': teams,
+        'scores': scores,
     })
 }
 

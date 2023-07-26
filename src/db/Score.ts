@@ -45,14 +45,17 @@ async function createScore(tournamentId: number,
     return score;
 }
 
-async function getTournamentPoolScores(tournamentId: number): Promise<Score[]>  {
+async function getTournamentScores(tournamentId: number): Promise<Score[]>  {
     const scores = await prisma.score.findMany({
         where: {
             tournamentId: tournamentId,
-            gameType: GameType.POOL,
+        },
+        include: {
+            teamA: true,
+            teamB: true,
         }
     })
     return scores
 }
 
-export { createScore, getTournamentPoolScores }
+export { createScore, getTournamentScores }

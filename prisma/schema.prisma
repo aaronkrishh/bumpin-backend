@@ -71,6 +71,7 @@ model Team {
   name String
   pool Pool
   seed Int?  // Seeding for playoffs. Can be Within own pool or total
+  // rank Int? // Final rankings
   players Player[]
   teamAScores Score[] @relation("TeamAScores")
   teamBScores Score[] @relation("TeamBScores")

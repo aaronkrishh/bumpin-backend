@@ -62,6 +62,9 @@ async function getTournamentScores(tournamentId: number): Promise<Score[]>  {
         include: {
             teamA: true,
             teamB: true,
+        },
+        orderBy: {
+            createdAt: "desc"
         }
     })
     return scores

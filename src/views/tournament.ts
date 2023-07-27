@@ -45,7 +45,7 @@ async function getTournamentHandler(req: Request, res: Response){
 
 async function addScoreHandler(req: Request, res: Response){
     let tournamentId = Number(req.params.id)
-    let {teamAId, teamBId, teamAPoints, teamBPoints, gameType} = req.body.score
+    let {teamAId, teamBId, teamAPoints, teamBPoints, sets, gameType} = req.body.score
 
     let score = await createScore(
         tournamentId,
@@ -53,7 +53,8 @@ async function addScoreHandler(req: Request, res: Response){
         teamBId,
         teamAPoints,
         teamBPoints,
-        gameType
+        sets,
+        gameType,
     )
 
     res.status(200).send({

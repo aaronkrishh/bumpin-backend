@@ -6,9 +6,10 @@ const prisma = new PrismaClient()
 const computeWinner = (teamAId: number,
                        teamBId: number,
                        teamAPoints: number[],
-                       teamBPoints: number[]):WinnerTeam => {
+                       teamBPoints: number[],
+                       sets: number):WinnerTeam => {
     let diff: number = 0
-    for (let i = 0; i < teamAPoints.length; i++) {
+    for (let i = 0; i < sets; i++) {
         if (teamAPoints[i] > teamBPoints[i]) {
             diff += 1
         } else {
@@ -20,15 +21,23 @@ const computeWinner = (teamAId: number,
     return WinnerTeam.B
 }
 
+const validateSetCount = (teamAPoints: number[],
+                          teamBPoints: number[],
+                          sets: number): boolean => {
+    return ((teamAPoints.length === teamBPoints.length)  && (teamAPoints.length === sets))
+}
+
 async function createScore(tournamentId: number,
                            teamAId: number,
                            teamBId: number,
                            teamAPoints: number[],
                            teamBPoints: number[],
+                           sets: number,
                            gameType: GameType): Promise<Score> {
+    const isValid = validateSetCount(teamAPoints, teamBPoints, sets)
+    if (!isValid) throw Error("Failed to create Score object, set count is contradictory.")
 
-    const winner = computeWinner(teamAId, teamBId, teamAPoints, teamBPoints)
-    const sets = teamAPoints.length
+    const winner = computeWinner(teamAId, teamBId, teamAPoints, teamBPoints, sets)
     const score = await prisma.score.create({
         data: {
             tournamentId,

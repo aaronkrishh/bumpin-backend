@@ -51,6 +51,7 @@ CREATE TABLE "Team" (
     "name" TEXT NOT NULL,
     "pool" "Pool" NOT NULL,
     "seed" INTEGER,
+    "finalRank" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

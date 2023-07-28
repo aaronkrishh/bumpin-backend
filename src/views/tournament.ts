@@ -9,6 +9,7 @@ import {
 import {createScore, getTournamentScores} from "../db/Score";
 import {getTeamsForTournament, initializeTeams, updateTeamPools} from "../db/Team";
 import {numToPool, shuffle} from "../utils/util";
+import {Stage} from "@prisma/client";
 
 
 async function createTournamentHandler(req: Request, res: Response){
@@ -66,6 +67,10 @@ async function updateStageHandler(req: Request, res: Response) {
     let tournamentId = Number(req.params.id)
     let data: UpdateTournamentData = {stage: req.body.stage}
     let tournament = await updateTournament(tournamentId, data)
+
+    if (data.stage === Stage.PLAYOFF) {
+
+    }
 
     res.status(200).send({
         'tournament': tournament

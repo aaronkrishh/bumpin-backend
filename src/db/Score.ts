@@ -33,7 +33,7 @@ async function createScore(tournamentId: number,
                            teamAPoints: number[],
                            teamBPoints: number[],
                            sets: number,
-                           gameType: GameType): Promise<Score> {
+                           gameType: GameType) {
     const isValid = validateSetCount(teamAPoints, teamBPoints, sets)
     if (!isValid) throw Error("Failed to create Score object, set count is contradictory.")
 
@@ -54,11 +54,14 @@ async function createScore(tournamentId: number,
     return score;
 }
 
-async function getTournamentScores(tournamentId: number): Promise<Score[]>  {
+async function getTournamentScores(tournamentId: number, poolOnly: boolean = false) {
+    const filter: {tournamentId: number, gameType? : GameType} = {
+        tournamentId: tournamentId
+    }
+    if (poolOnly) filter.gameType = GameType.POOL
+
     const scores = await prisma.score.findMany({
-        where: {
-            tournamentId: tournamentId,
-        },
+        where: filter,
         include: {
             teamA: true,
             teamB: true,

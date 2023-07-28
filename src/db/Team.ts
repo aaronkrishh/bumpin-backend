@@ -3,7 +3,7 @@ import {numToPool} from "../utils/util";
 
 const prisma = new PrismaClient()
 
-async function getTeamsForTournament(tournamentId: number): Promise<Team[]> {
+async function getTeamsForTournament(tournamentId: number) {
     const teams = await prisma.team.findMany({
         where: {
             tournamentId: tournamentId

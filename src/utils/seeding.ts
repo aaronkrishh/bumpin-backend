@@ -49,13 +49,15 @@ async function computePlayoffSeeding(tournamentId: number) {
     poolATeams.sort(sortTeamsFn)
     poolBTeams.sort(sortTeamsFn)
 
-    const updateSeedFn = (team: Team, index: number) => {
-        let seed = index + 1
-        updateTeam(team.id, {seed: seed})
+    const updateSeeds = async (poolTeams: Team[]) => {
+        for (const [index, team] of poolTeams.entries()) {
+            let seed = index + 1
+            await updateTeam(team.id, {seed: seed})
+        }
     }
 
-    poolATeams.forEach(updateSeedFn)
-    poolBTeams.forEach(updateSeedFn)
+    await updateSeeds(poolATeams)
+    await updateSeeds(poolBTeams)
 }
 
 export { computePlayoffSeeding }

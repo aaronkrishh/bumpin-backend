@@ -17,7 +17,7 @@ async function computePlayoffSeeding(tournamentId: number) {
 
     scores.forEach(score => {
         if (score.teamA.pool !== score.teamB.pool) {
-            console.error(`Pool Play scores exist between teams in different pools. Score ID: ${score.id}`)
+            throw new Error(`Pool Play scores exist between teams in different pools. Score ID: ${score.id}`)
         }
         if (score.winner === "A") {
             record[score.teamA.id].setsWon += 1

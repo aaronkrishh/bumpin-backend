@@ -1,4 +1,4 @@
-import {PrismaClient} from '@prisma/client'
+import {PrismaClient, Tournament} from '@prisma/client'
 import type {Stage} from "@prisma/client";
 
 const prisma = new PrismaClient()
@@ -6,7 +6,7 @@ const prisma = new PrismaClient()
 async function createTournament(name: string,
                                 teamCount: number,
                                 poolsCount: number,
-                                bracketType: number = 0) {
+                                bracketType: number = 0): Promise<Tournament> {
     const tournament = await prisma.tournament.create({
         data: {
             name,
@@ -20,12 +20,12 @@ async function createTournament(name: string,
 }
 
 
-async function getTournaments() {
+async function getTournaments(): Promise<Tournament[]> {
     const allTournaments = await prisma.tournament.findMany()
     return allTournaments
 }
 
-async function getTournament(id: number) {
+async function getTournament(id: number): Promise<Tournament> {
     const tournament = await prisma.tournament.findUniqueOrThrow({
         where: {
             id: id,
@@ -34,7 +34,7 @@ async function getTournament(id: number) {
     return tournament
 }
 
-async function updateStage(tournamentId: number, stage: Stage) {
+async function updateStage(tournamentId: number, stage: Stage): Promise<Tournament> {
     let tournament = await prisma.tournament.update({
         where: { id: tournamentId },
         data: { stage: stage },
@@ -42,7 +42,7 @@ async function updateStage(tournamentId: number, stage: Stage) {
     return tournament
 }
 
-async function updateName(tournamentId: number, name: string) {
+async function updateName(tournamentId: number, name: string): Promise<Tournament> {
     let tournament = await prisma.tournament.update({
         where: { id: tournamentId },
         data: { name: name },
@@ -55,7 +55,7 @@ interface UpdateTournamentData {
     stage?: Stage,
 }
 
-async function updateTournament(tournamentId: number, data: UpdateTournamentData) {
+async function updateTournament(tournamentId: number, data: UpdateTournamentData): Promise<Tournament> {
     let tournament = await prisma.tournament.update({
         where: { id: tournamentId },
         data: data,

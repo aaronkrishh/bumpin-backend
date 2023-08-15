@@ -1,5 +1,4 @@
 import {PrismaClient, GameType, WinnerTeam} from '@prisma/client'
-import type {Score} from "@prisma/client";
 
 const prisma = new PrismaClient()
 

@@ -13,7 +13,7 @@ require('dotenv').config();
 
 let cors = require('cors')
 const app = express();
-const port = 4000;
+const port = Number(process.env.PORT);
 
 let whitelist = ["https://bumpinsports.netlify.app/"]
 if (process.env.NODE_ENV === "dev") {

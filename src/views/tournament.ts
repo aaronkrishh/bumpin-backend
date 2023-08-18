@@ -9,7 +9,7 @@ import {
 import {createScore, getTournamentScores} from "../db/Score";
 import {getTeamsForTournament, initializeTeams, updateTeamPools} from "../db/Team";
 import {numToPool, shuffle} from "../utils/util";
-import {Stage} from "@prisma/client";
+import {Stage, Team} from "@prisma/client";
 import {computePlayoffSeeding} from "../utils/seeding";
 
 
@@ -71,7 +71,7 @@ async function updateStageHandler(req: Request, res: Response) {
 
     if (data.stage === Stage.PLAYOFF) {
         await computePlayoffSeeding(tournament.id)
-    }
+    } else if (data.stage === Stage.COMPLETE) {}
 
     res.status(200).send({
         'tournament': tournament
@@ -91,8 +91,8 @@ async function updateTournamentHandler(req: Request, res: Response) {
 async function shufflePoolsHandler(req: Request, res: Response) {
     let tournamentId = Number(req.params.id)
     let tournament = await getTournament(tournamentId)
-    let teams = await getTeamsForTournament(tournamentId)
-    let teamIds = teams.map(team => team.id)
+    let teams: Team[] = await getTeamsForTournament(tournamentId)
+    let teamIds: number[] = teams.map(team => team.id)
     shuffle(teamIds)
 
     let teamsPerPool = tournament.teamCount / tournament.poolsCount

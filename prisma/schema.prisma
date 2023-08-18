@@ -18,16 +18,16 @@ enum Stage {
 }
 
 model Tournament {
-  id        Int      @id @default(autoincrement())
-  name      String
-  teamCount Int
-  teams Team[]
+  id          Int      @id @default(autoincrement())
+  name        String
+  teamCount   Int
+  teams       Team[]
   bracketType Int
-  stage Stage @default(PREP)
-  poolsCount Int
-  scores Score[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  stage       Stage    @default(PREP)
+  poolsCount  Int
+  scores      Score[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 enum GameType {
@@ -41,20 +41,20 @@ enum WinnerTeam {
 }
 
 model Score {
-  id     Int     @id @default(autoincrement())
-  tournament Tournament @relation(fields: [tournamentId], references: [id])
+  id           Int        @id @default(autoincrement())
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
   tournamentId Int
-  teamAId Int
-  teamA Team @relation("TeamAScores", fields: [teamAId], references: [id])
-  teamBId Int
-  teamB Team @relation("TeamBScores", fields: [teamBId], references: [id])
-  teamAPoints Int []
-  teamBPoints Int []
-  sets Int
-  gameType GameType
-  winner WinnerTeam
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  teamAId      Int
+  teamA        Team       @relation("TeamAScores", fields: [teamAId], references: [id])
+  teamBId      Int
+  teamB        Team       @relation("TeamBScores", fields: [teamBId], references: [id])
+  teamAPoints  Int[]
+  teamBPoints  Int[]
+  sets         Int
+  gameType     GameType
+  winner       WinnerTeam
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 enum Pool {
@@ -65,17 +65,17 @@ enum Pool {
 }
 
 model Team {
-  id     Int     @id @default(autoincrement())
-  tournament Tournament @relation(fields: [tournamentId], references: [id])
+  id           Int        @id @default(autoincrement())
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
   tournamentId Int
-  name String
-  pool Pool
-  seed Int?  // Seeding for playoffs. Can be Within own pool or total
-  finalRank Int? // Final rankings
-  teamAScores Score[] @relation("TeamAScores")
-  teamBScores Score[] @relation("TeamBScores")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  name         String
+  pool         Pool
+  seed         Int? // Seeding for playoffs. Can be Within own pool or total
+  finalRank    Int? // Final rankings
+  teamAScores  Score[]    @relation("TeamAScores")
+  teamBScores  Score[]    @relation("TeamBScores")
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 enum UserRole {
@@ -84,10 +84,10 @@ enum UserRole {
 }
 
 model User {
-  id     Int     @id @default(autoincrement())
-  username String @unique
-  password String
-  role UserRole
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  role      UserRole
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

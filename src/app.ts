@@ -33,7 +33,7 @@ const errorHandler = (err: Error, req: Request, res: Response, next: NextFunctio
 app.use(cors(corsOptions))
 app.use(express.json()) // for parsing application/json
 
-app.get('/', (req, res) => {
+app.get('/health', (req, res) => {
     res.send('Hello world')
 })
 

@@ -9,6 +9,7 @@ import {
 } from "./views/tournament";
 import {updateTeamHandler} from "./views/team";
 import {rankHandler} from "./views/rank";
+import {deleteScoreHandler} from "./views/score";
 require('dotenv').config();
 
 let cors = require('cors')
@@ -55,6 +56,8 @@ app.post('/tournament/:id/add-score', addScoreHandler)
 app.post('/tournament/:id/update-stage', updateStageHandler)
 app.post('/team/:id/update', updateTeamHandler)
 app.post('/rank', rankHandler)
+
+app.delete('/score/:id', deleteScoreHandler)
 
 app.use(errorHandler)
 

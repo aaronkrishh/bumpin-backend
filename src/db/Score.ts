@@ -72,4 +72,12 @@ async function getTournamentScores(tournamentId: number, poolOnly: boolean = fal
     return scores
 }
 
-export { createScore, getTournamentScores }
+async function deleteScore(scoreId: number) {
+    await prisma.score.delete({
+        where: {
+            id: scoreId
+        }
+    })
+}
+
+export { createScore, getTournamentScores, deleteScore }

@@ -8,7 +8,6 @@ import {
     updateTournamentHandler
 } from "./views/tournament";
 import {updateTeamHandler} from "./views/team";
-import {rankHandler} from "./views/rank";
 import {deleteScoreHandler} from "./views/score";
 require('dotenv').config();
 
@@ -55,7 +54,6 @@ app.post('/tournament/:id/shuffle-pools', shufflePoolsHandler)
 app.post('/tournament/:id/add-score', addScoreHandler)
 app.post('/tournament/:id/update-stage', updateStageHandler)
 app.post('/team/:id/update', updateTeamHandler)
-app.post('/rank', rankHandler)
 
 app.delete('/score/:id', deleteScoreHandler)
 

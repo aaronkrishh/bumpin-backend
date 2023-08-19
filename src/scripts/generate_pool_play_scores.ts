@@ -39,7 +39,7 @@ async function generatePoolPlayScores(tournamentId: number) {
 }
 
 console.log("Starting script of generating pool play scores")
-generatePoolPlayScores(4)
+generatePoolPlayScores(1)
     .then(() => {
         console.log("Finished generating pool play scores")
     })

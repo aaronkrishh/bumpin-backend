@@ -71,6 +71,7 @@ async function updateStageHandler(req: Request, res: Response) {
 
     if (data.stage === Stage.PLAYOFF) {
         await computePlayoffSeeding(tournament.id)
+        // await createTopEightPlayoffMatches(tournamentId)
     } else if (data.stage === Stage.COMPLETE) {}
 
     res.status(200).send({

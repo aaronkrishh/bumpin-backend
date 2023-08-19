@@ -1,4 +1,6 @@
-import {Pool} from "@prisma/client";
+import {Pool, Score} from "@prisma/client";
+
+const getWinnerId = (score: Score) => (score.winner === "A" ? score.teamAId : score.teamBId)
 
 const numToPool = (number: number, poolCount: number): Pool => {
     let mod = number % poolCount
@@ -26,4 +28,4 @@ function shuffle(array: any[]) {
     return array;
 }
 
-export { shuffle, numToPool }
+export { shuffle, numToPool, getWinnerId }

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/app.ts",
-    "build-prod": "npm install && npx prisma migrate deploy && npx tsc",
+    "build-prod": "npm install && npx prisma migrate deploy && npx prisma generate && npx tsc",
     "start-prod": "node build/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

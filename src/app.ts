@@ -15,7 +15,7 @@ let cors = require('cors')
 const app = express();
 const port = Number(process.env.PORT);
 
-let whitelist = ["https://bumpinsports.netlify.app/", "https://bumpinsports.com/"]
+let whitelist = ["https://bumpinsports.netlify.app", "https://bumpinsports.com"]
 if (process.env.NODE_ENV === "dev") {
     whitelist.push("http://localhost:3000")
 }

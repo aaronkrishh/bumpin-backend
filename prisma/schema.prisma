@@ -77,10 +77,10 @@ model Match {
   score        Score?     @relation(fields: [scoreId], references: [id])
   scoreId      Int?       @unique
   state        MatchState @default(SCHEDULED)
-  teamAId      Int
-  teamA        Team       @relation("TeamAMatches", fields: [teamAId], references: [id])
-  teamBId      Int
-  teamB        Team       @relation("TeamBMatches", fields: [teamBId], references: [id])
+  teamAId      Int?
+  teamA        Team?      @relation("TeamAMatches", fields: [teamAId], references: [id])
+  teamBId      Int?
+  teamB        Team?      @relation("TeamBMatches", fields: [teamBId], references: [id])
   gameType     GameType
   nextMatchId  Int?
   nextMatch    Match?     @relation("NextMatch", fields: [nextMatchId], references: [id])

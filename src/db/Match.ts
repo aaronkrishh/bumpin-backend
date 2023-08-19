@@ -10,7 +10,6 @@ async function createMatch(tournamentId: number,
                            teamBId?: number,
                            state: MatchState = MatchState.SCHEDULED,) {
     const match = await prisma.match.create({
-        //@ts-ignore
         data: {
             tournamentId,
             name,
@@ -18,7 +17,7 @@ async function createMatch(tournamentId: number,
             state,
             teamAId,
             teamBId,
-            nextMatchId
+            nextMatchId,
         }
     });
 
@@ -50,7 +49,7 @@ async function getMatchesByTournamentId(tournamentId: number) {
             }
         },
         orderBy: {
-            createdAt: "desc"
+            id: "asc"
         }
     })
     return matches

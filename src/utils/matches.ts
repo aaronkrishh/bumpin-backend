@@ -9,7 +9,7 @@ async function createTopEightPlayoffMatches(tournamentId: number) {
     const sortedTeams = teams.sort((a , b) => {
         let aSeed = a.seed as number
         let bSeed = b.seed as number
-        return bSeed - aSeed
+        return aSeed - bSeed
     })
 
     let quarterFinalMatchups = [

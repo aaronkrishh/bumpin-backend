@@ -37,13 +37,13 @@ async function computePlayoffSeeding(tournamentId: number) {
     let poolBTeams = teams.filter(team => team.pool === "B")
 
     const sortTeamsFn = (tx: Team, ty: Team) => {
-        if (record[tx.id].setsWon > record[ty.id].setsWon) {
+        if (record[tx.id].setsWon < record[ty.id].setsWon) {
             return 1
         }
-        if (record[tx.id].setsWon < record[ty.id].setsWon) {
+        if (record[tx.id].setsWon > record[ty.id].setsWon) {
             return -1
         }
-        return record[tx.id].pointsDiff - record[ty.id].pointsDiff
+        return record[ty.id].pointsDiff - record[tx.id].pointsDiff
     }
 
     poolATeams.sort(sortTeamsFn)

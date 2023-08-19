@@ -25,4 +25,52 @@ async function createMatch(tournamentId: number,
     return match;
 }
 
-export { createMatch }
+async function getMatch(id: number) {
+    const match = await prisma.match.findUniqueOrThrow({
+        where: {
+            id: id,
+        }
+    })
+    return match
+}
+
+async function getMatchesByTournamentId(tournamentId: number) {
+    const matches = await prisma.match.findMany({
+        where: {
+            tournamentId: tournamentId
+        },
+        include: {
+            teamA: true,
+            teamB: true,
+            score: {
+                include: {
+                    teamA: true,
+                    teamB: true
+                }
+            }
+        },
+        orderBy: {
+            createdAt: "desc"
+        }
+    })
+    return matches
+}
+
+interface UpdateMatchData {
+    scoreId?: number
+    teamAId?: number
+    teamBId?: number
+}
+
+
+async function updateMatch(matchId: number, data: UpdateMatchData) {
+    const match = await prisma.match.update({
+        where: { id: matchId },
+        data: data
+    })
+    return match
+}
+
+
+
+export { createMatch, getMatch, getMatchesByTournamentId, updateMatch }

@@ -1,6 +1,6 @@
 import express, {NextFunction, Request, Response} from 'express';
 import {
-    addScoreHandler,
+    addPoolScoreHandler,
     createTournamentHandler,
     getTournamentHandler,
     getTournamentsHandler, shufflePoolsHandler,
@@ -8,7 +8,7 @@ import {
     updateTournamentHandler
 } from "./views/tournament";
 import {updateTeamHandler} from "./views/team";
-import {deleteScoreHandler} from "./views/score";
+import {addPlayoffScoreHandler, deleteScoreHandler} from "./views/score";
 require('dotenv').config();
 
 let cors = require('cors')
@@ -51,7 +51,8 @@ app.get('/tournament', getTournamentsHandler)
 app.get('/tournament/:id', getTournamentHandler)
 app.post('/tournament/:id/update', updateTournamentHandler)
 app.post('/tournament/:id/shuffle-pools', shufflePoolsHandler)
-app.post('/tournament/:id/add-score', addScoreHandler)
+app.post('/tournament/:id/add-pool-score', addPoolScoreHandler)
+app.post('/tournament/:id/add-playoff-score', addPlayoffScoreHandler)
 app.post('/tournament/:id/update-stage', updateStageHandler)
 app.post('/team/:id/update', updateTeamHandler)
 

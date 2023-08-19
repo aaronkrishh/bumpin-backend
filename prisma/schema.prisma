@@ -26,13 +26,19 @@ model Tournament {
   stage       Stage    @default(PREP)
   poolsCount  Int
   scores      Score[]
+  matches     Match[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
 enum GameType {
   POOL
-  PLAYOFF
+  PREQUARTERS
+  QUARTERS
+  SEMIS
+  FINALS
+  BRONZE
+  CONSOLATION
 }
 
 enum WinnerTeam {
@@ -53,6 +59,32 @@ model Score {
   sets         Int
   gameType     GameType
   winner       WinnerTeam
+  match        Match?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+enum MatchState {
+  DONE
+  SCHEDULED
+}
+
+model Match {
+  id           Int        @id @default(autoincrement())
+  name         String // QF 1, QF 2, etc
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId Int
+  score        Score?     @relation(fields: [scoreId], references: [id])
+  scoreId      Int?       @unique
+  state        MatchState @default(SCHEDULED)
+  teamAId      Int
+  teamA        Team       @relation("TeamAMatches", fields: [teamAId], references: [id])
+  teamBId      Int
+  teamB        Team       @relation("TeamBMatches", fields: [teamBId], references: [id])
+  gameType     GameType
+  nextMatchId  Int?
+  nextMatch    Match?     @relation("NextMatch", fields: [nextMatchId], references: [id])
+  prevMatches  Match[]    @relation("NextMatch")
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 }
@@ -74,6 +106,8 @@ model Team {
   finalRank    Int? // Final rankings
   teamAScores  Score[]    @relation("TeamAScores")
   teamBScores  Score[]    @relation("TeamBScores")
+  teamAMatches Match[]    @relation("TeamAMatches")
+  teamBMatches Match[]    @relation("TeamBMatches")
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 }

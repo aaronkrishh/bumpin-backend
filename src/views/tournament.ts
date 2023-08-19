@@ -9,8 +9,9 @@ import {
 import {createScore, getTournamentScores} from "../db/Score";
 import {getTeamsForTournament, initializeTeams, updateTeamPools} from "../db/Team";
 import {numToPool, shuffle} from "../utils/util";
-import {Stage, Team} from "@prisma/client";
+import {GameType, Stage, Team} from "@prisma/client";
 import {computePlayoffSeeding} from "../utils/seeding";
+import {createTopEightPlayoffMatches} from "../utils/matches";
 
 
 async function createTournamentHandler(req: Request, res: Response){
@@ -45,9 +46,9 @@ async function getTournamentHandler(req: Request, res: Response){
     })
 }
 
-async function addScoreHandler(req: Request, res: Response){
+async function addPoolScoreHandler(req: Request, res: Response){
     let tournamentId = Number(req.params.id)
-    let {teamAId, teamBId, teamAPoints, teamBPoints, sets, gameType} = req.body.score
+    let {teamAId, teamBId, teamAPoints, teamBPoints, sets} = req.body.score
 
     let score = await createScore(
         tournamentId,
@@ -56,7 +57,7 @@ async function addScoreHandler(req: Request, res: Response){
         teamAPoints,
         teamBPoints,
         sets,
-        gameType,
+        GameType.POOL,
     )
 
     res.status(200).send({
@@ -71,7 +72,7 @@ async function updateStageHandler(req: Request, res: Response) {
 
     if (data.stage === Stage.PLAYOFF) {
         await computePlayoffSeeding(tournament.id)
-        // await createTopEightPlayoffMatches(tournamentId)
+        await createTopEightPlayoffMatches(tournamentId)
     } else if (data.stage === Stage.COMPLETE) {}
 
     res.status(200).send({
@@ -110,5 +111,5 @@ async function shufflePoolsHandler(req: Request, res: Response) {
 }
 
 
-export { createTournamentHandler, getTournamentsHandler, addScoreHandler, updateStageHandler, getTournamentHandler,
+export { createTournamentHandler, getTournamentsHandler, addPoolScoreHandler, updateStageHandler, getTournamentHandler,
     updateTournamentHandler, shufflePoolsHandler }

@@ -15,8 +15,8 @@ async function createTopEightPlayoffMatches(tournamentId: number) {
     let quarterFinalMatchups = [
         [sortedTeams[0].id, sortedTeams[7].id],
         [sortedTeams[3].id, sortedTeams[4].id],
-        [sortedTeams[1].id, sortedTeams[6].id],
         [sortedTeams[2].id, sortedTeams[5].id],
+        [sortedTeams[1].id, sortedTeams[6].id],
     ]
 
     let finalMatch = await createMatch(tournamentId, "Finals", GameType.FINALS)

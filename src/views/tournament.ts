@@ -12,6 +12,7 @@ import {numToPool, shuffle} from "../utils/util";
 import {GameType, Stage, Team} from "@prisma/client";
 import {computePlayoffSeeding} from "../utils/seeding";
 import {createTopEightPlayoffMatches} from "../utils/matches";
+import {getMatchesByTournamentId} from "../db/Match";
 
 
 async function createTournamentHandler(req: Request, res: Response){
@@ -38,11 +39,13 @@ async function getTournamentHandler(req: Request, res: Response){
     let tournament = await getTournament(tournamentId)
     let teams = await getTeamsForTournament(tournamentId)
     let scores = await getTournamentScores(tournamentId)
+    let matches = await getMatchesByTournamentId(tournamentId)
 
     res.status(200).send({
         'tournament': tournament,
         'teams': teams,
         'scores': scores,
+        'matches': matches,
     })
 }
 
